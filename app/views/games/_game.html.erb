@@ -26,7 +26,9 @@
 
   <p>
     <strong>Cover:</strong>
-    <%= link_to game.cover.filename, game.cover if game.cover.attached? %>
+    <%= link_to "/games/index" do %>
+        <%= image_tag game.cover if game.cover.attached?%>
+    <% end%>
   </p>
 
   <p>
