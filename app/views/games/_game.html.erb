@@ -1,0 +1,37 @@
+<div id="<%= dom_id game %>">
+  <p>
+    <strong>Name:</strong>
+    <%= game.name %>
+  </p>
+
+  <p>
+    <strong>Summary:</strong>
+    <%= game.summary %>
+  </p>
+
+  <p>
+    <strong>Release date:</strong>
+    <%= game.release_date %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= game.category %>
+  </p>
+
+  <p>
+    <strong>Rating:</strong>
+    <%= game.rating %>
+  </p>
+
+  <p>
+    <strong>Cover:</strong>
+    <%= link_to game.cover.filename, game.cover if game.cover.attached? %>
+  </p>
+
+  <p>
+    <strong>Game:</strong>
+    <%= game.game_id %>
+  </p>
+
+</div>
