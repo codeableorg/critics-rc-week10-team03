@@ -1,10 +1,113 @@
-<p style="color: green"><%= notice %></p>
+<section class="container">
+  <div class="flex-row"><%= image_tag @game.cover, class: "image_game"%></div>
+  <div class="flex-row">
+    <div class="flex-column">
+      <h3><%= @game.name %></h3>
+      <h5><%= @game.release_date.year %></h5>
+    </div>
+    <div>
+      <button class="btn"><%= @game.rating %></button>
+    </div>
+  </div>
 
-<%= render @game %>
+   <div class="contenedor-encabezado">
+    <ul class="encabezado flex-row" id="encabezado">
+      <li><a href="#details">Details</a></li>
+      <li><a href="#critics">Critics</a></li>
+    </ul>
 
-<div>
-  <%= link_to "Edit this game", edit_game_path(@game) %> |
-  <%= link_to "Back to games", games_path %>
+    <div class="contentido" id="contenido">
+      <div id="details" class="active">
+        <p> <%= @game.summary %></p>
+      </div>
 
-  <%= button_to "Destroy this game", @game, method: :delete %>
-</div>
+      <div id="critics">
+          <%# POST /games/:game_id/critics %>
+        <%=form_with model: [@game, @critic] do |f|%>
+          <div >
+            <div >
+              <%= f.text_area :body%>
+            </div>
+          <%# <%=errors_for(@critic, :body)%>
+          </div>
+
+          <div>
+            <%= f.submit %>
+          </div>
+        <%end%>
+
+        <div>
+          <%@critics.each do |critic|%>
+            <div>
+              <p>By <%=critic.user.username%></p>
+              <p><%=critic.body%></p>
+              <div>
+                <p><%=critic.created_at%></p>
+                <%=button_to image_tag("icons/trash.svg"), 
+                        game_critic_path(critic),
+                        method: :delete, "data-turbo": "false",
+                        class: "action-icon"%>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div>
+    <h4>Genres</h4>
+    <% @game.genres.each do |genre|%>
+      <button><%= genre.name %></button>
+    <% end %>
+  </div>
+
+  <div>
+    <h4>Platforms</h4>
+    <% @game.platforms.each do |platform|%>
+      <button><%= platform.name %></button>
+    <% end %>
+  </div>
+
+  <div>
+    <h4>Platforms</h4>
+    <% @game.platforms.each do |platform|%>
+      <button><%= platform.name %></button>
+    <% end %>
+  </div>
+
+  <div>
+    <h4>Publisher</h4>
+    <button><%= @game.involved_companies.find_by(publisher: true).company.name%></button>
+  </div>
+
+  <div>
+    <h4>Developer</h4>
+    <button><%= @game.involved_companies.find_by(developer: true).company.name%></button>
+  </div>
+
+  <div>
+    <h4>Add relations</h4>
+    <%= form_with(model: @game, data: { turbo: "false" }) do |f| %>
+      <%= f.collection_select :name, @genres, :id, :name, include_blank: "Selected genre" %>
+      <%= f.submit "Add Genre"%>
+    <% end %>
+
+    <%= form_with(model: @game, data: { turbo: "false" }) do |f| %>
+      <%= f.collection_select :name, @platforms, :id, :name, include_blank: "Selected platform" %>
+      <%= f.submit "Add Platform"%>
+    <% end %>
+
+    <%= form_with(model: @game, data: { turbo: "false" }) do |f| %>
+      <%= f.collection_select :name, @companies, :id, :name, include_blank: "Selected developer" %>
+      <%= f.submit "Add Developer"%>
+    <% end %>
+
+    <%= form_with(model: @game, data: { turbo: "false" }) do |f| %>
+      <%= f.collection_select :name, @companies, :id, :name, include_blank: "Selected publisher" %>
+      <%= f.submit "Add Developer"%>
+    <% end %>
+
+  </div>
+</section>

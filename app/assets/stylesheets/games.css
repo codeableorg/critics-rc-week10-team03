@@ -1,0 +1,48 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.image_game{
+  width: 328px;
+  height: 160px;
+}
+
+.container{
+  width: 80%vw;
+  margin: 0 auto;
+}
+
+.flex-row{
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.flex-row__bw{
+  justify-content: space-between;
+}
+
+.btn{
+  height: 100%;
+}
+
+.active{
+  color: red;
+}
+
+#contenido > div{
+  display: none
+}
+#contenido > .active{
+  display: block;
+  transition: all 0.3s ease;
+}
+
