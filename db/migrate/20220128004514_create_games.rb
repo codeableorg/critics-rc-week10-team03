@@ -6,7 +6,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.date :release_date
       t.integer :category, default: 0
       t.decimal :rating
-      t.references :game, null: false, foreign_key: true
+      t.integer :critics_count, default: 0
 
       t.timestamps
     end

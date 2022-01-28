@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_28_012122) do
+ActiveRecord::Schema.define(version: 2022_01_28_144259) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2022_01_28_012122) do
     t.text "description"
     t.date "start_date"
     t.string "country"
+    t.integer "games_count", default: 0
+    t.integer "critics_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_companies_on_name", unique: true
@@ -72,11 +74,12 @@ ActiveRecord::Schema.define(version: 2022_01_28_012122) do
     t.date "release_date"
     t.integer "category", default: 0
     t.decimal "rating"
-    t.bigint "game_id", null: false
+    t.integer "critics_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["game_id"], name: "index_games_on_game_id"
+    t.bigint "parent_id"
     t.index ["name"], name: "index_games_on_name", unique: true
+    t.index ["parent_id"], name: "index_games_on_parent_id"
   end
 
   create_table "games_genres", id: false, force: :cascade do |t|
@@ -103,6 +106,7 @@ ActiveRecord::Schema.define(version: 2022_01_28_012122) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_involved_companies_on_company_id"
+    t.index ["game_id", "company_id"], name: "index_involved_companies_on_game_id_and_company_id", unique: true
     t.index ["game_id"], name: "index_involved_companies_on_game_id"
   end
 
@@ -116,7 +120,7 @@ ActiveRecord::Schema.define(version: 2022_01_28_012122) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.integer "role", default: 0
-    t.integer "critics_count"
+    t.integer "critics_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -125,7 +129,7 @@ ActiveRecord::Schema.define(version: 2022_01_28_012122) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "critics", "users"
-  add_foreign_key "games", "games"
+  add_foreign_key "games", "games", column: "parent_id"
   add_foreign_key "involved_companies", "companies"
   add_foreign_key "involved_companies", "games"
 end

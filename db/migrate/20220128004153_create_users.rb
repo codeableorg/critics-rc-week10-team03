@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
     create_table :users do |t|
       t.string :username
       t.integer :role, default: 0
-      t.integer :critics_count
+      t.integer :critics_count, default: 0
 
       t.timestamps
     end

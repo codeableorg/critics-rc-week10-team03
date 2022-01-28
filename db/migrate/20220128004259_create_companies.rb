@@ -5,6 +5,8 @@ class CreateCompanies < ActiveRecord::Migration[7.0]
       t.text :description
       t.date :start_date
       t.string :country
+      t.integer :games_count, default: 0
+      t.integer :critics_count, default: 0
 
       t.timestamps
     end
