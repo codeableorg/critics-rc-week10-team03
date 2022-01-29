@@ -1,14 +1,14 @@
 <p style="color: green"><%= notice %></p>
+<section class="section-game">
+  <div class="show-title">
+    <h1 style="margin: 1rem;padding-top: 16px;">Companies</h1>
+    <%=link_to "New Game", "#", class: "new-game-button"%>
+  </div>
+  <h1>Companies</h1>
+  <div id="games">
+    <% @companies.each do |company| %>
+      <%= render company %>    
+    <% end %>
+  </div>
+</section>
 
-<h1>Companies</h1>
-
-<div id="companies">
-  <% @companies.each do |company| %>
-    <%= render company %>
-    <p>
-      <%= link_to "Show this company", company %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New company", new_company_path %>

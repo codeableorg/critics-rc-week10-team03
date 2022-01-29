@@ -1,27 +1,43 @@
 <div id="<%= dom_id company %>">
-  <p>
-    <strong>Name:</strong>
-    <%= company.name %>
-  </p>
+  <div class="game-card flex center gap-2">    
+    <div>      
+      <%= image_tag  company.cover , class: "game-img" if company.cover.attached?%>      
+    </div>
 
-  <p>
-    <strong>Description:</strong>
-    <%= company.description %>
-  </p>
+    <div class="flex flex-column">
+      <div class="flex flex-column">
+        <div class="game-card__title_inline">
+          <div class="game-card__title">
+            <h2 class="content-lg">
+                <%= company.name %>
+            </h2>
+            <p class="content-xs">
+              <% year =  company.start_date.year unless company.start_date.nil?%>
+              <% data = [company.country, year ] %>
+              <%= data.join("-") if data.any? %>
+            </p>
+          </div>          
+        </div>      
+        <div class="game-summary" >        
+          <%= company.description %>
+        </div>      
+      </div>
 
-  <p>
-    <strong>Start date:</strong>
-    <%= company.start_date %>
-  </p>
+      <div class="game-card__footer">
+        <p><%=company.games_count%> Games</p>
+        <div class="game-card__icons">
+          <%=link_to "#", class: "dec-no" do %>
+            <i class="fas fa-pencil-alt"></i>
+          <%end%>
+          <%=link_to "#", class: "dec-no", data: { turbo_method: :delete, 
+                                                                    turbo_confirm: "Seguro?" } do%>
+            <i class="far fa-trash-alt"></i>
+          <%end%>
 
-  <p>
-    <strong>Country:</strong>
-    <%= company.country %>
-  </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <p>
-    <strong>Cover:</strong>
-    <%= link_to company.cover.filename, company.cover if company.cover.attached? %>
-  </p>
-
+  
 </div>
