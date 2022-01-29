@@ -31,14 +31,25 @@
       </div>
       
       <div id="critics" class="flex flex-column item-center">
-        <%# POST /companys/:company_id/critics %>
-        <%=form_with model: [@company, @critic], class:"flex flex-column center gap-2" do |f|%>
-          <%= f.text_field :title, class:"field", placeholder:"Critic title..."%>
-          <%# <%=errors_for(@critic, :body)%>
-          <%= f.text_area :body, class:"field", placeholder:"Critic body..."%>
-          <%# <%=errors_for(@critic, :body)%>
-          <%= f.submit "create critic", class: "button button--sm" %>
-        <%end%>
+        <div >
+          <%# POST /games/:game_id/critics %>
+          <%=form_with model: [@company, @critic], class:"flex flex-column center gap-2" do |f|%>
+          <div class="input">
+            <div class="input__container">
+              <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
+            </div>
+            <%# <%=errors_for(@critic, :body)%>
+          </div>
+
+          <div class="input">
+            <div class="input__container">
+              <%= f.text_area :body, class:"input__content", placeholder:"Critic body..."%>
+            </div>
+            <%# <%=errors_for(@critic, :body)%>
+          </div>
+            <%= f.submit "create critic", class: "button button--sm" %>
+          <%end%>
+        </div>
 
         <div class="flex-column gap-2 mb-4">
           <%@critics.each do |critic|%>
@@ -53,7 +64,7 @@
                 <div class="flex gap-2">
                   <span class="content-sm primary-300">Approve</span>
                   <%=button_to image_tag("icons/trash.svg"), 
-                          company_critic_path(critic),
+                          game_critic_path(critic),
                           method: :delete, "data-turbo": "false",
                           class: "action-icon"%>
                 </div>
@@ -61,7 +72,6 @@
             </div>
           <%end%>
         </div>
-
       </div>
 
     </div>
