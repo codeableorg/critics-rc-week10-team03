@@ -2,8 +2,6 @@ Rails.application.routes.draw do
   devise_for :users
   root "games#index"
 
-  resources :companies
-
   resources :games do
     resources :critics
   end
@@ -12,7 +10,9 @@ Rails.application.routes.draw do
     resources :critics
   end
 
-  resources :users
+  resources :users do
+    resources :critics
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

@@ -18,12 +18,16 @@
           <%= link_to image_tag("logo_critics.png"), root_path, class: "logo" %>
           <nav>
             <ul class="navbar-links" role="list">
-              <li>Welcome username</li>
-              <li><%=link_to "Profile", "#"%></li>
-              <li><%=link_to "Search", "#"%></li>
-              <li>
-                <%=button_to "Log Out", "#"%>
-              </li>
+              <% if user_signed_in? %>
+                <li>Welcome <%=current_user.username%></li>
+                <li><%=link_to "Profile", edit_user_path(current_user)%></li>
+                <li><%=link_to "Search", "#"%></li>
+                <li>
+                  <%=button_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class: "button button--sm" %>
+                </li>
+              <% else%>
+                <li><%=link_to "Sing in", new_user_session_path %></li>
+              <% end %>
             </ul>
           </nav>
           <div class="js-navbar-menu">
