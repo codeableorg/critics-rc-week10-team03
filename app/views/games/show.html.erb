@@ -109,10 +109,19 @@
         <div >
           <%# POST /games/:game_id/critics %>
           <%=form_with model: [@game, @critic], class:"flex flex-column center gap-2" do |f|%>
-            <%= f.text_field :title, class:"field", placeholder:"Critic title..."%>
+          <div class="input">
+            <div class="input__container">
+              <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
+            </div>
             <%# <%=errors_for(@critic, :body)%>
-            <%= f.text_area :body, class:"field", placeholder:"Critic body..."%>
+          </div>
+
+          <div class="input">
+            <div class="input__container">
+              <%= f.text_area :body, class:"input__content", placeholder:"Critic body..."%>
+            </div>
             <%# <%=errors_for(@critic, :body)%>
+          </div>
             <%= f.submit "create critic", class: "button button--sm" %>
           <%end%>
         </div>
