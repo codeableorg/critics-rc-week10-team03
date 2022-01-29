@@ -1,9 +1,7 @@
 <h1>New game</h1>
 
-<%= render "form", game: @game %>
+<%= render "form", game: @game, games: @games %>
 
-<br>
-
-<div>
-  <%= link_to "Back to games", games_path %>
+<div class="flex center">
+  <%= link_to "Back", games_path, class: "overline" %>
 </div>

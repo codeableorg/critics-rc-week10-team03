@@ -56,7 +56,9 @@
 
     <div class="input">
       <%= form.label :cover, class:"content-xs overline" %>
-      <%= image_tag game.cover, class: "preview" %>
+      <% if game.cover.attached? %>
+        <%= image_tag game.cover, class: "preview" %>
+      <% end %>
       <%= form.file_field :cover %>
     </div>
 
