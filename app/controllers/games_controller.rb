@@ -7,7 +7,15 @@ class GamesController < ApplicationController
   end
 
   # GET /games/1 or /games/1.json
-  def show; end
+
+  def show
+    @game = Game.find(params[:id])
+    @critic = Critic.new
+    @critics = @game.critics
+    @genres = Genre.all
+    @platforms = Platform.all
+    @companies = Company.all
+  end
 
   # GET /games/new
   def new

@@ -1,10 +1,149 @@
-<p style="color: green"><%= notice %></p>
+<section class="container__sm pt-0">
+  <div class="flex-row"><%= image_tag @game.cover, class: "image_game mb-4"%></div>
+  <div class="flex-row flex-row__bw mb-6">
+    <div class="flex-column">
+      <h3 class="heading--sm"><%= @game.name %></h3>
+      <h5 class="content-xs"><%= @game.release_date.year %></h5>
+    </div>
+    <div class="rating flex center">
+      <span class="content-xl"><%= @game.rating %></span>
+    </div>
+  </div>
 
-<%= render @game %>
+   <div class="contenedor-encabezado mb-4">
+    <ul class="encabezado grid mb-4" id="encabezado">
+      <li class="item content-sm"><a href="#details">Details</a></li>
+      <li class="item content-sm"><a href="#critics">Critics (<%= @game.critics_count %>)</a></li>
+    </ul>
 
-<div>
-  <%= link_to "Edit this game", edit_game_path(@game) %> |
-  <%= link_to "Back to games", games_path %>
+    <div class="contentido" id="contenido">
+      <div id="details" class="active">
+        <p class="content-sm"> <%= @game.summary %></p>
+          <div class="mb-4">
+            <h4>Genres</h4>
+            <div class="flex wrap gap-2">
+              <% @game.genres.each do |genre|%>
+                <div class="flex gap-2 tag center">
+                  <span><%= genre.name %></span>
+                  <div>
+                    <%= link_to "#" do %>
+                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
 
-  <%= button_to "Destroy this game", @game, method: :delete %>
-</div>
+          <div class="mb-4">
+            <h4>Platforms</h4>
+            <div class="flex wrap gap-2">
+              <% @game.platforms.each do |platform|%>
+                <div class="flex gap-2 tag center">
+                  <span><%= platform.name %></span>
+                  <div>
+                    <%= link_to "#" do %>
+                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h4>Publisher</h4>
+            <div class="flex wrap gap-2 tag center">
+              <%= @game.involved_companies.find_by(publisher: true).company.name %>
+              <%= link_to "#" do %>
+              <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h4>Developer</h4>
+            <div class="flex wrap gap-2 tag center">
+              <%= @game.involved_companies.find_by(developer: true).company.name %>
+              <%= link_to "#" do %>
+              <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+              <% end %>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="mb-4">Add relations</h4>
+            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :name, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
+                <%= f.submit "Add Genre", class: "button button--sm"%>
+              </div>
+            <% end %>
+
+            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :name, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
+                <%= f.submit "Add Platform", class: "button button--sm"%>
+              </div>
+            <% end %>
+
+            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>
+                <%= f.submit "Add Developer", class: "button button--sm"%>
+              </div>
+            <% end %>
+
+            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
+                <%= f.submit "Add Developer", class: "button button--sm"%>
+              </div>
+            <% end %>
+          
+          </div>
+      </div>
+
+      <div id="critics" class="flex flex-column item-center">
+        <div >
+          <%# POST /games/:game_id/critics %>
+          <%=form_with model: [@game, @critic], class:"flex flex-column center gap-2" do |f|%>
+            <%= f.text_field :title, class:"field"%>
+            <%# <%=errors_for(@critic, :body)%>
+            <%= f.text_area :body, class:"field"%>
+            <%# <%=errors_for(@critic, :body)%>
+            <%= f.submit "create critic", class: "button button--sm" %>
+          <%end%>
+        </div>
+
+        <div class="flex-column gap-2 mb-4">
+          <%@critics.each do |critic|%>
+            <div>
+              <br>
+              <hr>
+              <p class="heading--sm mt-2"><%=critic.title%></p>
+              <p class="content-xs">By <%=critic.user.username%></p>
+              <p class="small"><%=critic.body%></p>
+              <div class="flex flex__bw">
+                <p class="content-xs"><%= "Send #{Date.today.day - critic.created_at.day} days ago" %></p>
+                <div class="flex gap-2">
+                  <span class="content-sm primary-300">Approve</span>
+                  <%=button_to image_tag("icons/trash.svg"), 
+                          game_critic_path(critic),
+                          method: :delete, "data-turbo": "false",
+                          class: "action-icon"%>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+
+  
+    <div class="flex center"><button class="button button--sm ">Back</button></div>
+
+</section>
