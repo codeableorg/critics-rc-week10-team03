@@ -27,10 +27,10 @@
       <div class="game-card__footer">
         <p><%=game.critics_count%> Critics</p>
         <div class="game-card__icons">
-          <%=link_to "#", class: "dec-no" do %>
+          <%=link_to edit_game_path(game), class: "dec-no" do %>
             <i class="fas fa-pencil-alt"></i>
           <%end%>
-          <%=link_to "#", class: "dec-no", data: { turbo_method: :delete, 
+          <%=link_to game_path(game), class: "dec-no", data: { turbo_method: :delete, 
                                                                     turbo_confirm: "Seguro?" } do%>
             <i class="far fa-trash-alt"></i>
           <%end%>
