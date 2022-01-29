@@ -45,7 +45,38 @@
         <%= yield %>
 
       <footer class="footer bg-gray-100">
-        <p>© 2022 - Codeable Critics</p>
+        <span>© 2021 - Codeable Critics</span>
+        <span>Build with &#9829; by</span>
+        <div class="footer-links-container">
+          <div class = "item_a">
+            <%=link_to "https://www.linkedin.com/in/ruben-sandro-santillan-salazar/", class: "footer-link", target: "_blank" do%>
+              <%=image_tag("linkedin-footer.svg") %>
+              <p class="footer-name">Ruben</p>
+            <%end%>
+          </div>
+
+          <div class = "item_b">
+            <%=link_to "https://www.linkedin.com/in/jean-carlos-vargas-paz-453baa127/", class: "footer-link", target: "_blank" do%>
+              <%=image_tag("linkedin-footer.svg") %>
+              <p class="footer-name">Jean</p>
+            <%end%>
+          </div>
+            
+          <div class = "item_c">
+            <%=link_to "https://www.linkedin.com/in/eduardo-salinas-76255a221/", class: "footer-link", target: "_blank" do%>
+              <%=image_tag("linkedin-footer.svg") %>
+              <p class="footer-name">Eduardo</p>
+            <%end%>
+          </div>
+          
+          <div class = "item_e">
+            <%=link_to "https://www.linkedin.com", class: "footer-link", target: "_blank" do%>
+              <%=image_tag("linkedin-footer.svg") %>
+              <p class="footer-name">Sergio</p>
+            <%end%>
+          </div>
+
+        </div>
       </footer>
 
   <script>
