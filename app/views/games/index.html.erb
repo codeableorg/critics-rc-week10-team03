@@ -6,7 +6,9 @@
   </div>
   <div id="games">
     <% @games.each do |game| %>
-      <%= render game %>    
+      <%= link_to game_path(game) do %>
+        <%= render game %>   
+      <% end  %>
     <% end %>
   </div>
 </section>
