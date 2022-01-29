@@ -77,6 +77,10 @@
   flex-wrap: wrap;
 }
 
+.gap-1 {
+  gap: 0.25rem;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }
@@ -148,4 +152,18 @@
 .flex__start{
   place-content: flex-start;
   place-items: flex-start;
+}
+
+.fit_content_height{
+  height: auto;
+}
+
+.preview{
+  width: 20%;
+}
+.full_space{
+  border: none;
+  outline: none;
+  box-shadow: none;
+  width: 100%;
 }

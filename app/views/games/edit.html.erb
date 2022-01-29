@@ -1,10 +1,11 @@
-<h1>Editing game</h1>
+<section class="container__sm">
+  <h1 class="heading--sm mb-4">Edit game</h1>
 
-<%= render "form", game: @game %>
+  <%= render "form", game: @game, games: @games %>
 
-<br>
+  <div class="flex center">
+    <%# link_to "Show this game", @game %>
+    <%= link_to "Back", games_path, class: "overline" %>
+  </div>
+</section>
 
-<div>
-  <%= link_to "Show this game", @game %> |
-  <%= link_to "Back to games", games_path %>
-</div>
