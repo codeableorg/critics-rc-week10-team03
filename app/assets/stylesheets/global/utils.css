@@ -161,9 +161,7 @@
 .preview{
   width: 20%;
 }
-.full_space{
-  border: none;
-  outline: none;
-  box-shadow: none;
-  width: 100%;
+
+.pd-24-16{
+  padding: 24px 16px;
 }
