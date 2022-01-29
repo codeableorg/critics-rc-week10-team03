@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
   root "games#index"
 
+  resources :companies
+
   resources :games do
     resources :critics
   end
