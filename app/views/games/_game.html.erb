@@ -1,37 +1,40 @@
 <div id="<%= dom_id game %>">
-  <div class="game-card">    
-    <p>      
+  <div class="game-card flex">    
+    <div>      
       <%= image_tag  game.cover , class: "game-img" if game.cover.attached?%>      
-    </p>
-    <div class="game-data">
-      <div class="game-card__title_inline">
-        <div class="game-card__title">
-          <p style="width: 140px;margin-top: 8px;align-items: center;align-content: center;font-size: 1.125rem; color: #303036">
-              <%= game.name %>
-          </p>
-          <p style="font-size: 0.75rem; color: #7A7A7A;">         
-            <%= game.release_date.year %>
-          </p>
-        </div>
-        <p class="card-rating">        
-          <%= game.rating.round(1) if !game.rating.nil? %>
-        </p>
-      </div>      
-      <div class="game-summary" >        
-        <%= game.summary %>
-      </d>      
     </div>
-    <div class="game-card__footer">
-      <p><%=game.critics_count%> Critics</p>
-      <div class="game-card__icons">
-        <%=link_to "#", class: "dec-no" do %>
-          <i class="fas fa-pencil-alt"></i>
-        <%end%>
-        <%=link_to "#", class: "dec-no", data: { turbo_method: :delete, 
-                                                                  turbo_confirm: "Seguro?" } do%>
-          <i class="far fa-trash-alt"></i>
-        <%end%>
+    <div>
+      <div class="game-data flex flex-column">
+        <div class="game-card__title_inline">
+          <div class="game-card__title">
+            <h2 class="content-lg">
+                <%= game.name %>
+            </h2>
+            <p class="content-xs">         
+              <%= game.release_date.year %>
+            </p>
+          </div>
+          <p class="card-rating flex center">        
+            <%= game.rating.round(1) if !game.rating.nil? %>
+          </p>
+        </div>      
+        <div class="game-summary" >        
+          <%= game.summary %>
+        </div>      
+      </div>
 
+      <div class="game-card__footer">
+        <p><%=game.critics_count%> Critics</p>
+        <div class="game-card__icons">
+          <%=link_to "#", class: "dec-no" do %>
+            <i class="fas fa-pencil-alt"></i>
+          <%end%>
+          <%=link_to "#", class: "dec-no", data: { turbo_method: :delete, 
+                                                                    turbo_confirm: "Seguro?" } do%>
+            <i class="far fa-trash-alt"></i>
+          <%end%>
+
+        </div>
       </div>
     </div>
   </div>

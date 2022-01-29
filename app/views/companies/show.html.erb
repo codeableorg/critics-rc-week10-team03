@@ -1,10 +1,74 @@
-<p style="color: green"><%= notice %></p>
+<section class="container__sm pt-0">
+  <div class="flex-row"><%= image_tag @company.cover, class: "image_company mb-4"%></div>
+  <div class="flex-row flex-row__bw mb-6">
+    <div class="flex-column">
+      <h3 class="heading--sm"><%= @company.name %></h3>
+      <h5 class="content-xs">
+        <% year =  @company.start_date.year unless @company.start_date.nil?%>
+        <% data = [@company.country, year ] %>
+        <%= data.join("-") if data.any? %>
+      </h5>
+    </div>
+  </div>
 
-<%= render @company %>
+  <div class="contenedor-encabezado mb-4">
+    <ul class="encabezado grid mb-4" id="encabezado">
+      <li class="item content-sm"><a href="#details">Company Details</a></li>
+      <li class="item content-sm"><a href="#critics">Critics (<%= @company.critics_count %>)</a></li>
+    </ul>
 
-<div>
-  <%= link_to "Edit this company", edit_company_path(@company) %> |
-  <%= link_to "Back to companies", companies_path %>
+    <div class="contentido" id="contenido">
 
-  <%= button_to "Destroy this company", @company, method: :delete %>
-</div>
+      <div id="details" class="active">
+        <p class="content-sm"> <%= @company.description %></p>
+
+        <div class="mb-4">
+          <h4>Games</h4>
+          <div class="flex flex-column wrap gap-2">
+            <% @games.each do |game|%>
+              <%= render partial: "games/game", object: game%>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
+      <div id="critics" class="flex flex-column item-center">
+        <%# POST /companys/:company_id/critics %>
+        <%=form_with model: [@company, @critic], class:"flex flex-column center gap-2" do |f|%>
+          <%= f.text_field :title, class:"field"%>
+          <%# <%=errors_for(@critic, :body)%>
+          <%= f.text_area :body, class:"field"%>
+          <%# <%=errors_for(@critic, :body)%>
+          <%= f.submit "create critic", class: "button button--sm" %>
+        <%end%>
+
+        <div class="flex-column gap-2 mb-4">
+          <%@critics.each do |critic|%>
+            <div>
+              <br>
+              <hr>
+              <p class="heading--sm mt-2"><%=critic.title%></p>
+              <p class="content-xs">By <%=critic.user.username%></p>
+              <p class="small"><%=critic.body%></p>
+              <div class="flex flex__bw">
+                <p class="content-xs"><%= "Send #{Date.today.day - critic.created_at.day} days ago" %></p>
+                <div class="flex gap-2">
+                  <span class="content-sm primary-300">Approve</span>
+                  <%=button_to image_tag("icons/trash.svg"), 
+                          company_critic_path(critic),
+                          method: :delete, "data-turbo": "false",
+                          class: "action-icon"%>
+                </div>
+              </div>
+            </div>
+          <%end%>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="flex center"><button class="button button--sm ">Back</button></div>
+
+</section>

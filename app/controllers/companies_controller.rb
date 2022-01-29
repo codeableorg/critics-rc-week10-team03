@@ -7,7 +7,12 @@ class CompaniesController < ApplicationController
   end
 
   # GET /companies/1 or /companies/1.json
-  def show; end
+  def show
+    @company = Company.find(params[:id])
+    @games = @company.games
+    @critic = Critic.new
+    @critics = @company.critics
+  end
 
   # GET /companies/new
   def new
