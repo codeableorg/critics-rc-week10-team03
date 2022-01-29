@@ -9,7 +9,6 @@ class GamesController < ApplicationController
   # GET /games/1 or /games/1.json
 
   def show
-    @game = Game.find(params[:id])
     @critic = Critic.new
     @critics = @game.critics
     @genres = Genre.all
@@ -23,7 +22,9 @@ class GamesController < ApplicationController
   end
 
   # GET /games/1/edit
-  def edit; end
+  def edit
+    @games = Game.all
+  end
 
   # POST /games or /games.json
   def create
