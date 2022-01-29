@@ -9,10 +9,91 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
+  
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+      <header class = "header">
+        <div class = "container navbar" >
+          <%= link_to image_tag("logo_critics.png"), root_path, class: "logo" %>
+          <nav>
+            <ul class="navbar-links" role="list">
+              <li>Welcome username</li>
+              <li><%=link_to "Profile", "#"%></li>
+              <li><%=link_to "Search", "#"%></li>
+              <li>
+                <%=button_to "Log Out", "#"%>
+              </li>
+            </ul>
+          </nav>
+          <div class="js-navbar-menu">
+            <%=image_tag "icons/menu.svg", class: "navbar__menu-icon"%>
+            <%=image_tag "icons/close.svg", class: "navbar__menu-icon-close"%>
+          </div>
+        </div>
+      </header>
+
+      <section class="container">
+        <p style="color: green"><%= notice %></p>
+        <p style="color: red"><%= alert %></p>
+      </section>
+      
+        <%= yield %>
+
+      <footer class="footer bg-gray-100">
+        <p>© 2022 - Codeable Critics</p>
+      </footer>
+
+  <script>
+    const navbarMenu = document.querySelector(".js-navbar-menu");
+    const navbar = document.querySelector(".navbar");
+    navbarMenu.addEventListener("click", () => navbar.classList.toggle("navbar--open"));
+
+    var propTabs = {
+
+      primer_encabezado: document.getElementById('encabezado').firstElementChild,
+      primer_contenido: document.getElementById('contenido').firstElementChild,
+      enlaces_encabezado: document.querySelectorAll('#encabezado li a'),
+      li_encabezado: document.querySelectorAll('#encabezado li'),
+      divs_contenido: document.querySelectorAll('#contenido > div'),
+      contenido_activo: null
+
+    }
+
+    // Objeto con métodos de Tab
+    var metTabs = {
+      
+      inicio: function(){
+        propTabs.primer_encabezado.className = 'active';
+        propTabs.primer_contenido.className = 'active';
+
+        for (var i = 0; i < propTabs.enlaces_encabezado.length; i++) {
+          propTabs.enlaces_encabezado[i].addEventListener('click', metTabs.evento);
+        }
+      },
+
+      evento: function(e){
+        e.preventDefault();
+
+        for (var i = 0; i < propTabs.li_encabezado.length; i++) {
+          propTabs.li_encabezado[i].className = '';
+        }
+
+        for (var i = 0; i < propTabs.divs_contenido.length; i++) {
+          propTabs.divs_contenido[i].className = '';
+        }
+
+        this.parentElement.className = 'active';
+        propTabs.contenido_activo = this.getAttribute('href');
+        document.querySelector(propTabs.contenido_activo).className = 'active';
+        document.querySelector(propTabs.contenido_activo).style.opacity = 0;
+        setTimeout(function(){
+          document.querySelector(propTabs.contenido_activo).style.opacity = 1;
+        }, 100);
+      }
+
+    }
+
+    metTabs.inicio();
+  </script>
   </body>
 </html>
