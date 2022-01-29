@@ -1,6 +1,6 @@
 <section class="container__sm pt-0">
-  <div class="flex-row"><%= image_tag @game.cover, class: "image_game mb-4"%></div>
-  <div class="flex-row flex-row__bw mb-6">
+  <div class="flex-row"><%= image_tag @game.cover, class: "image image_company mb-4"%></div>
+  <div class="flex-row flex__bw mb-6">
     <div class="flex-column">
       <h3 class="heading--sm"><%= @game.name %></h3>
       <h5 class="content-xs"><%= @game.release_date.year %></h5>
@@ -19,98 +19,99 @@
     <div class="contentido" id="contenido">
       <div id="details" class="active">
         <p class="content-sm"> <%= @game.summary %></p>
-          <div class="mb-4">
-            <h4>Genres</h4>
-            <div class="flex wrap gap-2">
-              <% @game.genres.each do |genre|%>
-                <div class="flex gap-2 tag center">
-                  <span><%= genre.name %></span>
-                  <div>
-                    <%= link_to "#" do %>
-                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-                    <% end %>
-                  </div>
+        <div class="mb-4">
+          <h4>Genres</h4>
+          <div class="flex wrap gap-2">
+            <% @game.genres.each do |genre|%>
+              <div class="flex gap-2 tag center">
+                <span><%= genre.name %></span>
+                <div>
+                  <%= link_to "#" do %>
+                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% end %>
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
+        </div>
 
-          <div class="mb-4">
-            <h4>Platforms</h4>
-            <div class="flex wrap gap-2">
-              <% @game.platforms.each do |platform|%>
-                <div class="flex gap-2 tag center">
-                  <span><%= platform.name %></span>
-                  <div>
-                    <%= link_to "#" do %>
-                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-                    <% end %>
-                  </div>
+        <div class="mb-4">
+          <h4>Platforms</h4>
+          <div class="flex wrap gap-2">
+            <% @game.platforms.each do |platform|%>
+              <div class="flex gap-2 tag center">
+                <span><%= platform.name %></span>
+                <div>
+                  <%= link_to "#" do %>
+                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% end %>
                 </div>
-              <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h4>Publisher</h4>
+          <div class="flex wrap gap-2 tag center">
+            <%= @game.involved_companies.find_by(publisher: true).company.name %>
+            <%= link_to "#" do %>
+            <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <h4>Developer</h4>
+          <div class="flex wrap gap-2 tag center">
+            <%= @game.involved_companies.find_by(developer: true).company.name %>
+            <%= link_to "#" do %>
+            <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+            <% end %>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="mb-4">Add relations</h4>
+          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+            <div class="flex gap-2">
+              <%= f.collection_select :name, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
+              <%= f.submit "Add Genre", class: "button button--sm"%>
             </div>
-          </div>
+          <% end %>
 
-          <div class="mb-4">
-            <h4>Publisher</h4>
-            <div class="flex wrap gap-2 tag center">
-              <%= @game.involved_companies.find_by(publisher: true).company.name %>
-              <%= link_to "#" do %>
-              <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-              <% end %>
+          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+            <div class="flex gap-2">
+              <%= f.collection_select :name, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
+              <%= f.submit "Add Platform", class: "button button--sm"%>
             </div>
-          </div>
+          <% end %>
 
-          <div class="mb-4">
-            <h4>Developer</h4>
-            <div class="flex wrap gap-2 tag center">
-              <%= @game.involved_companies.find_by(developer: true).company.name %>
-              <%= link_to "#" do %>
-              <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-              <% end %>
+          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+            <div class="flex gap-2">
+              <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>
+              <%= f.submit "Add Developer", class: "button button--sm"%>
             </div>
-          </div>
+          <% end %>
 
-          <div>
-            <h4 class="mb-4">Add relations</h4>
-            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
-              <div class="flex gap-2">
-                <%= f.collection_select :name, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
-                <%= f.submit "Add Genre", class: "button button--sm"%>
-              </div>
-            <% end %>
-
-            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
-              <div class="flex gap-2">
-                <%= f.collection_select :name, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
-                <%= f.submit "Add Platform", class: "button button--sm"%>
-              </div>
-            <% end %>
-
-            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
-              <div class="flex gap-2">
-                <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>
-                <%= f.submit "Add Developer", class: "button button--sm"%>
-              </div>
-            <% end %>
-
-            <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
-              <div class="flex gap-2">
-                <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
-                <%= f.submit "Add Developer", class: "button button--sm"%>
-              </div>
-            <% end %>
-          
-          </div>
+          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+            <div class="flex gap-2">
+              <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
+              <%= f.submit "Add Developer", class: "button button--sm"%>
+            </div>
+          <% end %>
+        
+        </div>
+        
       </div>
 
       <div id="critics" class="flex flex-column item-center">
         <div >
           <%# POST /games/:game_id/critics %>
           <%=form_with model: [@game, @critic], class:"flex flex-column center gap-2" do |f|%>
-            <%= f.text_field :title, class:"field"%>
+            <%= f.text_field :title, class:"field", placeholder:"Critic title..."%>
             <%# <%=errors_for(@critic, :body)%>
-            <%= f.text_area :body, class:"field"%>
+            <%= f.text_area :body, class:"field", placeholder:"Critic body..."%>
             <%# <%=errors_for(@critic, :body)%>
             <%= f.submit "create critic", class: "button button--sm" %>
           <%end%>
