@@ -11,6 +11,11 @@
   margin: auto;
 }
 
+.container__sm {
+  max-width: 328px;
+  margin: 0 auto;
+}
+
 .container-lg {
   max-width: 1024px;
   margin: auto;
@@ -19,4 +24,8 @@
 .container-xl {
   max-width: 1280px;
   margin: auto;
+}
+
+.select{
+  width: 200px;
 }

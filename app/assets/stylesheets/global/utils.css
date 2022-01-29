@@ -45,6 +45,10 @@
   margin-bottom: 2rem;
 }
 
+.mb-6 {
+  margin-bottom: 1.5rem;
+}
+
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -107,4 +111,29 @@
 /* Paddings */
 .p-0 {
   padding: 0;
+}
+
+.pt-0{
+ padding-top: 0;
+ margin-top: 0;
+}
+.m-0{
+  margin: 0;
+}
+.inline{
+  display: inline-block;
+}
+
+.center{
+  place-content: center;
+  place-items: center;
+}
+
+.grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.br-8{
+  border-radius: 8px;
 }

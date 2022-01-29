@@ -5,6 +5,7 @@
 }
 
 .image_game{
+  border-radius: 8px;
   width: 328px;
   height: 160px;
 }
@@ -20,11 +21,11 @@
   gap: 4px;
 }
 
-.flex-column{
+/* .flex-column{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-}
+} */
 
 .flex-row__bw{
   justify-content: space-between;
@@ -35,7 +36,8 @@
 }
 
 .active{
-  color: red;
+  color: #303036;;  
+  border-bottom: #c26786 solid 2px;
 }
 
 #contenido > div{
@@ -46,3 +48,13 @@
   transition: all 0.3s ease;
 }
 
+.item{
+  width: 50%;
+  padding: 4px 30px;
+}
+
+
+
+.align-center{
+  text-align: center;
+}

@@ -31,13 +31,13 @@
           </div>
         </div>
       </header>
-      <main class="section">
-        <section class="container">
-          <p style="color: green"><%= notice %></p>
-          <p style="color: red"><%= alert %></p>
-          <%= yield %>
-        </section>
-      </main>
+
+      <section class="container">
+        <p style="color: green"><%= notice %></p>
+        <p style="color: red"><%= alert %></p>
+      </section>
+      
+        <%= yield %>
 
       <footer class="footer bg-gray-100">
         <p>© 2022 - Codeable Critics</p>
@@ -48,7 +48,6 @@
     const navbar = document.querySelector(".navbar");
     navbarMenu.addEventListener("click", () => navbar.classList.toggle("navbar--open"));
 
-    de Tab
     var propTabs = {
 
       primer_encabezado: document.getElementById('encabezado').firstElementChild,
