@@ -145,3 +145,7 @@
   justify-content: space-between;
   place-items: center;
 }
+.flex__start{
+  place-content: flex-start;
+  place-items: flex-start;
+}

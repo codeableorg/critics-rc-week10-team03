@@ -6,7 +6,7 @@
 
 .game-img {
     width: 120px;
-    height: 100%;    
+    height: 160px;    
 }
 
 .game-card {
@@ -87,21 +87,14 @@
 }
 
 
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.image_game{
+.image{
   border-radius: 8px;
   width: 328px;
   height: 160px;
 }
 
-.container{
-  width: 80%vw;
-  margin: 0 auto;
+.image__company{
+  border-radius: 0;
 }
 
 .flex-row{
@@ -109,14 +102,6 @@
   justify-content: center;
   gap: 4px;
 }
-
-/* .flex-column{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-} */
-
-
 
 .btn{
   height: 100%;
@@ -139,8 +124,6 @@
   width: 50%;
   padding: 4px 30px;
 }
-
-
 
 .align-center{
   text-align: center;
