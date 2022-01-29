@@ -1,5 +1,5 @@
 class CriticsController < ApplicationController
-  before_action :set_critic, only: %i[ show edit update destroy ]
+  before_action :set_critic, only: %i[show edit update destroy]
 
   # GET /critics or /critics.json
   def index
@@ -7,8 +7,7 @@ class CriticsController < ApplicationController
   end
 
   # GET /critics/1 or /critics/1.json
-  def show
-  end
+  def show; end
 
   # GET /critics/new
   def new
@@ -16,8 +15,7 @@ class CriticsController < ApplicationController
   end
 
   # GET /critics/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /critics or /critics.json
   def create
@@ -58,13 +56,14 @@ class CriticsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_critic
-      @critic = Critic.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def critic_params
-      params.require(:critic).permit(:title, :body, :user_id, :criticable_id, :criticable_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_critic
+    @critic = Critic.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def critic_params
+    params.require(:critic).permit(:title, :body, :user_id, :criticable_id, :criticable_type)
+  end
 end

@@ -1,14 +1,12 @@
 <p style="color: green"><%= notice %></p>
-
-<h1>Games</h1>
-
-<div id="games">
-  <% @games.each do |game| %>
-    <%= render game %>
-    <p>
-      <%= link_to "Show this game", game %>
-    </p>
-  <% end %>
-</div>
-
-<%= link_to "New game", new_game_path %>
+<section class="section">
+  <div class="show-title">
+    <h1 style="margin: 1rem;padding-top: 16px;">Games</h1>
+    <%=link_to "New Game", "#", class: "new-game-button"%>
+  </div>
+  <div id="games">
+    <% @games.each do |game| %>
+      <%= render game %>    
+    <% end %>
+  </div>
+</section>
