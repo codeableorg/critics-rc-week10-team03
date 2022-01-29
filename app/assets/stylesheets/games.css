@@ -27,9 +27,7 @@
   justify-content: flex-start;
 } */
 
-.flex-row__bw{
-  justify-content: space-between;
-}
+
 
 .btn{
   height: 100%;
@@ -57,4 +55,8 @@
 
 .align-center{
   text-align: center;
+}
+
+.primary-300{
+  color: var(--primary-300);
 }

@@ -61,6 +61,9 @@
   margin-bottom: 0.25rem;
 }
 
+.mt-2{
+  margin-top: 0.5rem;
+}
 /* Flex & Grid */
 .flex {
   display: flex;
@@ -136,4 +139,9 @@
 
 .br-8{
   border-radius: 8px;
+}
+
+.flex__bw{
+  justify-content: space-between;
+  place-items: center;
 }
