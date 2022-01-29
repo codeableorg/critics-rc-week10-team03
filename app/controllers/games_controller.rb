@@ -31,27 +31,19 @@ class GamesController < ApplicationController
   def create
     @game = Game.new(game_params)
 
-    respond_to do |format|
-      if @game.save
-        format.html { redirect_to game_url(@game), notice: "Game was successfully created." }
-        format.json { render :show, status: :created, location: @game }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.save
+      redirect_to root_path, notice: "Game was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /games/1 or /games/1.json
   def update
-    respond_to do |format|
-      if @game.update(game_params)
-        format.html { redirect_to game_url(@game), notice: "Game was successfully updated." }
-        format.json { render :show, status: :ok, location: @game }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @game.errors, status: :unprocessable_entity }
-      end
+    if @game.update(game_params)
+      redirect_to root_path, notice: "Game was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -71,6 +63,6 @@ class GamesController < ApplicationController
   # Only allow a list of trusted parameters through.
   def game_params
     params.require(:game).permit(:name, :summary, :release_date, :category, :rating, :cover,
-                                 :game_id)
+                                 :game_id, :parent_id)
   end
 end
