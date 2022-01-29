@@ -108,7 +108,7 @@
       <div id="critics" class="flex flex-column item-center">
         <div >
           <%# POST /games/:game_id/critics %>
-          <%=form_with model: [@game, @critic], class:"flex flex-column center gap-2" do |f|%>
+          <%=form_with model: [@game, @critic], action: :create, method: :post, class:"flex flex-column center gap-2" do |f|%>
           <div class="input">
             <div class="input__container">
               <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
@@ -139,7 +139,7 @@
                 <div class="flex gap-2">
                   <span class="content-sm primary-300">Approve</span>
                   <%=button_to image_tag("icons/trash.svg"), 
-                          game_critic_path(critic),
+                          game_critic_path(@game, critic),
                           method: :delete, "data-turbo": "false",
                           class: "action-icon"%>
                 </div>
