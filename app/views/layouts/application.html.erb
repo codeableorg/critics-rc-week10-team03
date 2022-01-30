@@ -25,10 +25,12 @@
                 <li><%=link_to "Games", root_path%></li>
                 <li><%=link_to "Search", "#"%></li>
                 <li>
-                  <%=button_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class: "button button--sm" %>
+                  <%=button_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class: "button button--secondary button-sm" %>
                 </li>
               <% else%>
-                <li class = "button button--sm"><%=link_to "Sing in", new_user_session_path %></li>
+                <li><%=link_to "Companies", companies_path%></li>
+                <li><%=link_to "Games", root_path%></li>
+                <li><%=link_to "Sing in", new_user_session_path, class: "button button--primary button--sm"%></li>
               <% end %>
             </ul>
           </nav>

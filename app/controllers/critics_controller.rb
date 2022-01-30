@@ -1,6 +1,6 @@
 class CriticsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_critic, only: %i[destroy]
+  before_action :set_critic, only: %i[update destroy]
 
   # GET /critics or /critics.json
   def index
@@ -9,6 +9,8 @@ class CriticsController < ApplicationController
 
   # POST /critics or /critics.json
   def create
+    # authorize @critic
+ 
     @critic = Critic.new(critic_params)
     if params[:game_id]
       @criticable = Game.find(params[:game_id])
@@ -23,6 +25,14 @@ class CriticsController < ApplicationController
       redirect_to @criticable, notice: "Critic was successfully created."
     else
       render @criticable, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @critic.update(approved: true)
+      redirect_to @critic.criticable, notice: "Critic was approved."
+    else
+      render @critic.criticable, status: :unprocessable_entity
     end
   end
 

@@ -26,8 +26,10 @@
               <div class="flex gap-2 tag center">
                 <span><%= genre.name %></span>
                 <div>
-                  <%= link_to game_genre_path(@game, genre), data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
-                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% if policy(:game).show? %>
+                    <%= link_to game_genre_path(@game, genre), data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
+                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
@@ -42,8 +44,10 @@
               <div class="flex gap-2 tag center">
                 <span><%= platform.name %></span>
                 <div>
-                  <%= link_to game_platform_path(@game, platform), data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
-                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% if policy(:game).show? %>
+                    <%= link_to game_platform_path(@game, platform), data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
+                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
@@ -58,8 +62,10 @@
               <div class="flex gap-2 tag center">
                 <span><%=relation.company.name%></span>
                 <div>
-                  <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
-                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% if policy(:game).show? %>
+                    <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
+                      <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                    <% end %>
                   <% end %>
                 </div>
               </div>
@@ -73,47 +79,50 @@
             <% @game.involved_companies.where(developer: true).each do |relation| %>
               <div class="flex wrap gap-2 tag center">
                 <%=relation.company.name%>
-                <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
-                  <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-                <% end %>
+                <% if policy(:game).show? %>
+                  <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
+                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% end %>
+                <%end%>
               </div>
             <%end%>
           </div>
         </div>
 
     
+        <% if policy(:game).show? %>
+          <div>
+            <h4 class="mb-4">Add relations</h4>
+            <%= form_with(model: [@game, @genre], data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :id, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
+                <%= f.submit "Add Genre", class: "button button--sm"%>
+              </div>
+            <% end %>
 
-        <div>
-          <h4 class="mb-4">Add relations</h4>
-          <%= form_with(model: [@game, @genre], data: { turbo: "false" }, class: "mb-4") do |f| %>
-            <div class="flex gap-2">
-              <%= f.collection_select :id, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
-              <%= f.submit "Add Genre", class: "button button--sm"%>
-            </div>
-          <% end %>
+            <%= form_with(model: [@game, @platform], data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :id, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
+                <%= f.submit "Add Platform", class: "button button--sm"%>
+              </div>
+            <% end %>
 
-          <%= form_with(model: [@game, @platform], data: { turbo: "false" }, class: "mb-4") do |f| %>
-            <div class="flex gap-2">
-              <%= f.collection_select :id, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
-              <%= f.submit "Add Platform", class: "button button--sm"%>
-            </div>
-          <% end %>
+            <%= form_with(model: [@game, @involved_company], data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :id, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>              
+                <%= f.submit "Add Publisher", class: "button button--sm"%>
+              </div>
+            <% end %>
 
-          <%= form_with(model: [@game, @involved_company], data: { turbo: "false" }, class: "mb-4") do |f| %>
-            <div class="flex gap-2">
-              <%= f.collection_select :id, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>              
-              <%= f.submit "Add Publisher", class: "button button--sm"%>
-            </div>
-          <% end %>
-
-          <%= form_with(model: [@game, @involved_company], data: { turbo: "false" }, class: "mb-4") do |f| %>
-            <div class="flex gap-2">
-              <%= f.collection_select :id, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
-              <%= f.submit "Add Developer", class: "button button--sm"%>
-            </div>
-          <% end %>
-        
-        </div>
+            <%= form_with(model: [@game, @involved_company], data: { turbo: "false" }, class: "mb-4") do |f| %>
+              <div class="flex gap-2">
+                <%= f.collection_select :id, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
+                <%= f.submit "Add Developer", class: "button button--sm"%>
+              </div>
+            <% end %>
+          
+          </div>
+        <% end%>
         
       </div>
 
@@ -134,9 +143,9 @@
               </div>
               <%=errors_for(@critic, :body)%>
             </div>
-            <%# if policy(:critic).create? %>
+            
               <%= f.submit "create critic", class: "button button--sm" %>
-            <%#end%>
+            
           <%end%>
 
         </div>
@@ -152,7 +161,16 @@
               <div class="flex flex__bw">
                 <p class="content-xs"><%= "Send #{Date.today.day - critic.created_at.day} days ago" %></p>
                 <div class="flex gap-2">
-                  <span class="content-sm primary-300">Approve</span>
+                   <% if !critic.approved  %>
+                      <% if current_user.role == "admin" %>
+                        <%= form_with model: [@game, critic], method: :patch do |f| %>
+                          <%= f.submit "Approve", class: "content-sm button-none"%>
+                        <% end %>
+                      <% elsif current_user.role == "contributor" %>
+                        <span class="content-sm primary-300">Pending Approve</span>
+                      <% end %>
+                    <% end%>
+
                   <%=button_to image_tag("icons/trash.svg"), 
                           game_critic_path(@game, critic),
                           method: :delete, "data-turbo": "false",
