@@ -121,21 +121,24 @@
         <div >
           <%# POST /games/:game_id/critics %>
           <%=form_with model: [@game, @critic], action: :create, method: :post, class:"flex flex-column center gap-2" do |f|%>
-          <div class="input">
-            <div class="input__container">
-              <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
+            <div class="input">
+              <div class="input__container">
+                <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
+              </div>
+              <%# <%=errors_for(@critic, :body)%>
             </div>
-            <%# <%=errors_for(@critic, :body)%>
-          </div>
 
-          <div class="input">
-            <div class="input__container">
-              <%= f.text_area :body, class:"input__content", placeholder:"Critic body..."%>
+            <div class="input">
+              <div class="input__container">
+                <%= f.text_area :body, class:"input__content", placeholder:"Critic body..."%>
+              </div>
+              <%# <%=errors_for(@critic, :body)%>
             </div>
-            <%# <%=errors_for(@critic, :body)%>
-          </div>
-            <%= f.submit "create critic", class: "button button--sm" %>
+            <% if policy(:critic).create? %>
+              <%= f.submit "create critic", class: "button button--sm" %>
+            <%end%>
           <%end%>
+
         </div>
 
         <div class="flex-column gap-2 mb-4">

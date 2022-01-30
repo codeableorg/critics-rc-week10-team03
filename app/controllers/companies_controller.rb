@@ -1,4 +1,5 @@
 class CompaniesController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
   before_action :set_company, only: %i[show edit update destroy]
 
   # GET /companies or /companies.json

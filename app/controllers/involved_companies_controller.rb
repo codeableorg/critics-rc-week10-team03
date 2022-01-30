@@ -1,7 +1,6 @@
 class InvolvedCompaniesController < ApplicationController
-    before_action :set_game, only: %i[create destroy]
-    
-    
+  before_action :set_game, only: %i[create destroy]
+  
   def create           
     @game = Game.find(params[ :game_id ])
     @company = Company.find(params[:involved_company][:id])
