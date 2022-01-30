@@ -169,3 +169,10 @@
 .auto-fit{
   width: fit-content;
 }
+
+.button-none {
+  border: none;
+  border-radius: none;
+  outline:none;
+  color: var(--primary-500);
+  }
