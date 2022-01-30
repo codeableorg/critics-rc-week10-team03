@@ -9,5 +9,5 @@ class User < ApplicationRecord
   # Asosiaciones
   has_many :critics, dependent: :destroy
 
-  enum role: { user: 0, admin: 1 }
+  enum role: { contributor: 0, admin: 1 }
 end

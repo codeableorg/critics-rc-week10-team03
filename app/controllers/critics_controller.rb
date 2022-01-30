@@ -1,4 +1,5 @@
 class CriticsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_critic, only: %i[destroy]
 
   # GET /critics or /critics.json
@@ -26,7 +27,7 @@ class CriticsController < ApplicationController
   end
 
   # DELETE /critics/1 or /critics/1.json
-  def destroy    
+  def destroy
     @critic.destroy
     redirect_to @critic.criticable, notice: "Critic was successfully destroyed."
   end
