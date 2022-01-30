@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  # devise_for :users
+  devise_for :users, controllers: { registrations: "registrations" }
   root "games#index"
 
   resources :games do
@@ -8,7 +9,6 @@ Rails.application.routes.draw do
     resources :platforms
     resources :involved_companies
   end
-
   resources :companies
 
   resources :companies do
@@ -17,7 +17,6 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :critics
-  end
+  end 
   
-  # post "/add", to: "genres#add"
 end
