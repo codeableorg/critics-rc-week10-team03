@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     resources :critics
   end
 
+  resources :companies
+
   resources :companies do
     resources :critics
   end
