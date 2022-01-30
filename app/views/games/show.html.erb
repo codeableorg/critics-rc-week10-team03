@@ -125,18 +125,18 @@
               <div class="input__container">
                 <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
               </div>
-              <%# <%=errors_for(@critic, :body)%>
+              <%=errors_for(@critic, :body)%>
             </div>
 
             <div class="input">
               <div class="input__container">
                 <%= f.text_area :body, class:"input__content", placeholder:"Critic body..."%>
               </div>
-              <%# <%=errors_for(@critic, :body)%>
+              <%=errors_for(@critic, :body)%>
             </div>
-            <% if policy(:critic).create? %>
+            <%# if policy(:critic).create? %>
               <%= f.submit "create critic", class: "button button--sm" %>
-            <%end%>
+            <%#end%>
           <%end%>
 
         </div>

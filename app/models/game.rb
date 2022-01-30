@@ -1,8 +1,8 @@
 class Game < ApplicationRecord
-  # validates :name, :cover, presence: true
+  validates :name, :cover, presence: true
   validates :rating, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100,
                                      allow_nil: true }
-  # validates :release_date, comparison: { less_than_or_equal_to: Time.zone.today }
+  validates :release_date, comparison: { less_than_or_equal_to: Time.zone.today }
   validate :validate_parent
 
   # belongs_to :game

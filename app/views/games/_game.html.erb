@@ -24,9 +24,10 @@
         </div>      
       </div>
 
-      <% if policy(:game).show? %>
-        <div class="game-card__footer">
-          <p><%=game.critics_count%> Critics</p>
+      
+      <div class="game-card__footer">
+        <p><%=game.critics_count%> Critics</p>
+        <% if policy(:game).show? %>
           <div class="game-card__icons">
             <%=link_to edit_game_path(game), class: "dec-no" do %>
               <i class="fas fa-pencil-alt"></i>
@@ -37,8 +38,8 @@
             <%end%>
 
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 

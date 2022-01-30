@@ -2,7 +2,7 @@ class GenresController < ApplicationController
   before_action :authenticate_user!
   before_action :set_game, only: %i[create]
 
-  def create  
+  def create
     @game = Game.find(params[ :game_id ])
     @genre = Genre.find(params[:genre][:id])
     @game.genres << @genre
