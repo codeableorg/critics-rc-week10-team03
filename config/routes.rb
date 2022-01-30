@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     resources :involved_companies
   end
 
+  resources :companies
+
   resources :companies do
     resources :critics
   end

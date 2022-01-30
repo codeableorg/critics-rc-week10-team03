@@ -8,7 +8,6 @@ class CompaniesController < ApplicationController
 
   # GET /companies/1 or /companies/1.json
   def show
-    @company = Company.find(params[:id])
     @games = @company.games
     @critic = Critic.new
     @critics = @company.critics
@@ -25,43 +24,26 @@ class CompaniesController < ApplicationController
   # POST /companies or /companies.json
   def create
     @company = Company.new(company_params)
-
-    respond_to do |format|
-      if @company.save
-        format.html do
-          redirect_to company_url(@company), notice: "Company was successfully created."
-        end
-        format.json { render :show, status: :created, location: @company }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
+    if @company.save
+      redirect_to companies_path, notice: "Company was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /companies/1 or /companies/1.json
   def update
-    respond_to do |format|
-      if @company.update(company_params)
-        format.html do
-          redirect_to company_url(@company), notice: "Company was successfully updated."
-        end
-        format.json { render :show, status: :ok, location: @company }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
+    if @company.update(company_params)
+      redirect_to company_path(@company), notice: "Company was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /companies/1 or /companies/1.json
   def destroy
     @company.destroy
-
-    respond_to do |format|
-      format.html { redirect_to companies_url, notice: "Company was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to companies_path, notice: "Company was successfully destroyed."
   end
 
   private

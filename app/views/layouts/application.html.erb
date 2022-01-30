@@ -21,12 +21,14 @@
               <% if user_signed_in? %>
                 <li>Welcome <%=current_user.username%></li>
                 <li><%=link_to "Profile", edit_user_registration_path%></li>
+                <li><%=link_to "Companies", companies_path%></li>
+                <li><%=link_to "Games", root_path%></li>
                 <li><%=link_to "Search", "#"%></li>
                 <li>
                   <%=button_to "Log Out", destroy_user_session_path, method: :delete, data: { turbo: "false" }, class: "button button--sm" %>
                 </li>
               <% else%>
-                <li><%=link_to "Sing in", new_user_session_path %></li>
+                <li class = "button button--sm"><%=link_to "Sing in", new_user_session_path %></li>
               <% end %>
             </ul>
           </nav>

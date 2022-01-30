@@ -26,10 +26,10 @@
       <div class="game-card__footer">
         <p><%=company.games_count%> Games</p>
         <div class="game-card__icons">
-          <%=link_to "#", class: "dec-no" do %>
+          <%=link_to edit_company_path(company), class: "dec-no" do %>
             <i class="fas fa-pencil-alt"></i>
           <%end%>
-          <%=link_to "#", class: "dec-no", data: { turbo_method: :delete, 
+          <%=link_to company_path(company), class: "dec-no", data: { turbo_method: :delete, 
                                                                     turbo_confirm: "Seguro?" } do%>
             <i class="far fa-trash-alt"></i>
           <%end%>

@@ -165,3 +165,7 @@
 .pd-24-16{
   padding: 24px 16px;
 }
+
+.auto-fit{
+  width: fit-content;
+}
