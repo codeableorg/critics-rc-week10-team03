@@ -1,13 +1,13 @@
 <h2 class="heading--lg flex center mb-4">Change your password</h2>
-<section class="container__sm mb-2 bg-white">
-  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<section class="container__sm mb-2 bg-white pd-24-16">
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "flex flex-column gap-2 mb-4"}) do |f| %>
     <%= render "devise/shared/error_messages", resource: resource %>
     <%= f.hidden_field :reset_password_token %>
   
     <div class="input">
       <%= f.label :password, "New password" %>
       <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em><br />
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %>
       <div class="input__container">
         <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "input__content" %>
