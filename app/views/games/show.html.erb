@@ -161,7 +161,7 @@
               <div class="flex flex__bw">
                 <p class="content-xs"><%= "Send #{Date.today.day - critic.created_at.day} days ago" %></p>
                 <div class="flex gap-2">
-                   <% if !critic.approved  %>
+                   <% if !critic.approved && current_user %>
                       <% if current_user.role == "admin" %>
                         <%= form_with model: [@game, critic], method: :patch do |f| %>
                           <%= f.submit "Approve", class: "content-sm button-none"%>
