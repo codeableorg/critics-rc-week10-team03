@@ -26,7 +26,7 @@
               <div class="flex gap-2 tag center">
                 <span><%= genre.name %></span>
                 <div>
-                  <%= link_to "#" do %>
+                  <%= link_to game_genre_path(@game, genre), data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
                     <%= image_tag "icons/Icon-x.svg", class:"icon" %>
                   <% end %>
                 </div>
@@ -42,7 +42,7 @@
               <div class="flex gap-2 tag center">
                 <span><%= platform.name %></span>
                 <div>
-                  <%= link_to "#" do %>
+                  <%= link_to game_platform_path(@game, platform), data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
                     <%= image_tag "icons/Icon-x.svg", class:"icon" %>
                   <% end %>
                 </div>
@@ -53,50 +53,62 @@
 
         <div class="mb-4">
           <h4>Publisher</h4>
-          <div class="flex wrap gap-2 tag center">
-            <%= @game.involved_companies.find_by(publisher: true).company.name %>
-            <%= link_to "#" do %>
-            <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-            <% end %>
+          <div class="flex wrap gap-2">
+            <% @game.involved_companies.where(publisher: true).each do |relation| %>
+              <div class="flex gap-2 tag center">
+                <span><%=relation.company.name%></span>
+                <div>
+                  <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
+                    <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                  <% end %>
+                </div>
+              </div>
+            <%end%>
           </div>
         </div>
 
         <div class="mb-4">
           <h4>Developer</h4>
-          <div class="flex wrap gap-2 tag center">
-            <%= @game.involved_companies.find_by(developer: true).company.name %>
-            <%= link_to "#" do %>
-            <%= image_tag "icons/Icon-x.svg", class:"icon" %>
-            <% end %>
+          <div class="flex wrap gap-2">
+            <% @game.involved_companies.where(developer: true).each do |relation| %>
+              <div class="flex wrap gap-2 tag center">
+                <%=relation.company.name%>
+                <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
+                  <%= image_tag "icons/Icon-x.svg", class:"icon" %>
+                <% end %>
+              </div>
+            <%end%>
           </div>
         </div>
 
+    
+
         <div>
           <h4 class="mb-4">Add relations</h4>
-          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+          <%= form_with(model: [@game, @genre], data: { turbo: "false" }, class: "mb-4") do |f| %>
             <div class="flex gap-2">
-              <%= f.collection_select :name, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
+              <%= f.collection_select :id, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
               <%= f.submit "Add Genre", class: "button button--sm"%>
             </div>
           <% end %>
 
-          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+          <%= form_with(model: [@game, @platform], data: { turbo: "false" }, class: "mb-4") do |f| %>
             <div class="flex gap-2">
-              <%= f.collection_select :name, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
+              <%= f.collection_select :id, @platforms, :id, :name, {include_blank: "Select platform"}, {class: "select"} %>
               <%= f.submit "Add Platform", class: "button button--sm"%>
             </div>
           <% end %>
 
-          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+          <%= form_with(model: [@game, @involved_company], data: { turbo: "false" }, class: "mb-4") do |f| %>
             <div class="flex gap-2">
-              <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>
-              <%= f.submit "Add Developer", class: "button button--sm"%>
+              <%= f.collection_select :id, @companies, :id, :name, {include_blank: "Select developer"}, {class: "select"} %>              
+              <%= f.submit "Add Publisher", class: "button button--sm"%>
             </div>
           <% end %>
 
-          <%= form_with(model: @game, data: { turbo: "false" }, class: "mb-4") do |f| %>
+          <%= form_with(model: [@game, @involved_company], data: { turbo: "false" }, class: "mb-4") do |f| %>
             <div class="flex gap-2">
-              <%= f.collection_select :name, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
+              <%= f.collection_select :id, @companies, :id, :name, {include_blank: "Select publisher"}, {class: "select"} %>
               <%= f.submit "Add Developer", class: "button button--sm"%>
             </div>
           <% end %>
@@ -108,7 +120,7 @@
       <div id="critics" class="flex flex-column item-center">
         <div >
           <%# POST /games/:game_id/critics %>
-          <%=form_with model: [@game, @critic], class:"flex flex-column center gap-2" do |f|%>
+          <%=form_with model: [@game, @critic], action: :create, method: :post, class:"flex flex-column center gap-2" do |f|%>
           <div class="input">
             <div class="input__container">
               <%= f.text_field :title, class:"input__content", placeholder:"Critic title..."%>
@@ -139,7 +151,7 @@
                 <div class="flex gap-2">
                   <span class="content-sm primary-300">Approve</span>
                   <%=button_to image_tag("icons/trash.svg"), 
-                          game_critic_path(critic),
+                          game_critic_path(@game, critic),
                           method: :delete, "data-turbo": "false",
                           class: "action-icon"%>
                 </div>

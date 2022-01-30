@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 
   resources :games do
     resources :critics
+    resources :genres
+    resources :platforms
+    resources :involved_companies
   end
 
   resources :companies
@@ -15,8 +18,6 @@ Rails.application.routes.draw do
   resources :users do
     resources :critics
   end
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Defines the root path route ("/")
-  # root "articles#index"
+  
+  # post "/add", to: "genres#add"
 end

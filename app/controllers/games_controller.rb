@@ -12,8 +12,11 @@ class GamesController < ApplicationController
     @critic = Critic.new
     @critics = @game.critics
     @genres = Genre.all
+    @genre = Genre.new
+    @platform = Platform.new
     @platforms = Platform.all
     @companies = Company.all
+    @involved_company = InvolvedCompany.new
   end
 
   # GET /games/new
