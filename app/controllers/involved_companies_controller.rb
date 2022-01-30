@@ -1,15 +1,17 @@
 class InvolvedCompaniesController < ApplicationController
   before_action :set_game, only: %i[create destroy]
   
-  def create           
-    @game = Game.find(params[ :game_id ])
-    @company = Company.find(params[:involved_company][:id])
-    if params[:commit] == "Add Publisher"
-      @game.involved_companies.create(game: @game,company: @company, publisher: true, developer: false)
-    elsif params[:commit] == "Add Developer"
-      @game.involved_companies.create(game: @game,company: @company, developer: true, publisher: false)
+  def create
+    if params[:involved_company][:id] != ""         
+      @game = Game.find(params[ :game_id ])
+      @company = Company.find(params[:involved_company][:id])
+      if params[:commit] == "Add Publisher"
+        @game.involved_companies.create(game: @game,company: @company, publisher: true, developer: false)
+      elsif params[:commit] == "Add Developer"
+        @game.involved_companies.create(game: @game,company: @company, developer: true, publisher: false)
+      end
+      redirect_to game_path(@game)
     end
-    redirect_to game_path(@game)
   end
 
   def destroy
