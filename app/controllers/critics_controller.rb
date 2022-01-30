@@ -25,10 +25,7 @@ class CriticsController < ApplicationController
   end
 
   # DELETE /critics/1 or /critics/1.json
-  def destroy
-    puts "***************************************"
-    puts params
-    # @criticable = @critic.criticable
+  def destroy    
     @critic.destroy
     redirect_to @critic.criticable, notice: "Critic was successfully destroyed."
   end
