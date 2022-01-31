@@ -5,6 +5,7 @@ class CriticPolicy < ApplicationPolicy
 
   def create?
     raise Pundit::NotAuthorizedError, "must be logged in" unless user
+
     !user.nil?
   end
 
