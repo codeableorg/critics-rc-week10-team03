@@ -22,3 +22,4 @@ class PlatformsController < ApplicationController
     @game = Game.find(params[:game_id])
   end
 end
+

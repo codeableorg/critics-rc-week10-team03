@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   # devise_for :users
-  devise_for :users, controllers: { registrations: "registrations" }
+  devise_for :users, controllers: { registrations: "registrations",
+                                    omniauth_callbacks: :callbacks }
   root "games#index"
 
   resources :games do
@@ -17,6 +18,5 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :critics
-  end 
-  
+  end
 end

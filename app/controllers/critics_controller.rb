@@ -10,7 +10,7 @@ class CriticsController < ApplicationController
   # POST /critics or /critics.json
   def create
     # authorize @critic
- 
+
     @critic = Critic.new(critic_params)
     if params[:game_id]
       @criticable = Game.find(params[:game_id])
