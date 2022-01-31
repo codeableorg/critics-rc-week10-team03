@@ -39,7 +39,7 @@ class GamesController < ApplicationController
   end
 
   # POST /games or /games.json
-  def create
+  def create    
     authorize Game
 
     @game = Game.new(game_params)

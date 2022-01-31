@@ -1,12 +1,15 @@
 class PlatformsController < ApplicationController
-  before_action :set_game, only: %i[create]
-
+    before_action :set_game, only: %i[create]
+  
+  
   def create
-    @game = Game.find(params[:game_id])
-    @platform = Platform.find(params[:platform][:id])
-    @game.platforms << @platform
-    redirect_to game_path(@game)
-  end
+    if params[:platform][:id] != ""
+      @game = Game.find(params[ :game_id ])
+      @platform = Platform.find(params[:platform][:id])
+      @game.platforms << @platform
+      redirect_to game_path(@game)
+    end
+  end  
 
   def destroy
     @game = Game.find(params[:game_id])
@@ -19,3 +22,4 @@ class PlatformsController < ApplicationController
     @game = Game.find(params[:game_id])
   end
 end
+

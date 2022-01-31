@@ -6,7 +6,7 @@
       <h5 class="content-xs"><%= @game.release_date.year %></h5>
     </div>
     <div class="rating flex center">
-      <span class="content-xl"><%= @game.rating %></span>
+      <span class="content-xl"><%= @game.rating.round(1) %></span>
     </div>
   </div>
 
@@ -61,7 +61,7 @@
             <% @game.involved_companies.where(publisher: true).each do |relation| %>
               <div class="flex gap-2 tag center">
                 <span><%=relation.company.name%></span>
-                <div>
+                <div>                  
                   <% if policy(:game).show? %>
                     <%= link_to game_involved_company_path(@game, relation),data: {turbo_method: :delete, turbo_confirm: "Seguro?"} do %>
                       <%= image_tag "icons/Icon-x.svg", class:"icon" %>
@@ -93,7 +93,7 @@
         <% if policy(:game).show? %>
           <div>
             <h4 class="mb-4">Add relations</h4>
-            <%= form_with(model: [@game, @genre], data: { turbo: "false" }, class: "mb-4") do |f| %>
+            <%= form_with(model: [@game, @genre], data: { turbo: "false" }, class: "mb-4") do |f| %>              
               <div class="flex gap-2">
                 <%= f.collection_select :id, @genres, :id, :name, {include_blank: "Select genre"}, {class: "select"} %>
                 <%= f.submit "Add Genre", class: "button button--sm"%>
