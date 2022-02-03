@@ -1,0 +1,9 @@
+<section class="container__sm">
+  <h1 class="heading--lg mb-4">New Game</h1>
+
+  <%= render "form", game: @game, games: @games %>
+
+  <div class="flex center">
+    <%= link_to "Back", games_path, class: "overline" %>
+  </div>
+</section>

@@ -1,6 +1,22 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  # devise_for :users
+  devise_for :users, controllers: { registrations: "registrations",
+                                    omniauth_callbacks: :callbacks }
+  root "games#index"
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  resources :games do
+    resources :critics
+    resources :genres
+    resources :platforms
+    resources :involved_companies
+  end
+  resources :companies
+
+  resources :companies do
+    resources :critics
+  end
+
+  resources :users do
+    resources :critics
+  end
 end

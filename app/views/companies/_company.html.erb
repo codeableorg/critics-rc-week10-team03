@@ -1,0 +1,45 @@
+<div id="<%= dom_id company %>">
+  <div class="game-card flex center gap-2">    
+    <div>      
+      <%= image_tag  company.cover , class: "game-img" if company.cover.attached?%>      
+    </div>
+
+    <div class="flex flex-column">
+      <div class="flex flex-column">
+        <div class="game-card__title_inline">
+          <div class="game-card__title">
+            <h2 class="content-lg">
+                <%= company.name %>
+            </h2>
+            <p class="content-xs">
+              <% year =  company.start_date.year unless company.start_date.nil?%>
+              <% data = [company.country, year ] %>
+              <%= data.join("-") if data.any? %>
+            </p>
+          </div>          
+        </div>      
+        <div class="game-summary" >        
+          <%= company.description %>
+        </div>      
+      </div>
+
+       <% if policy(:game).show? %>
+        <div class="game-card__footer">
+          <p><%=company.games_count%> Games</p>
+          <div class="game-card__icons">
+            <%=link_to edit_company_path(company), class: "dec-no" do %>
+              <i class="fas fa-pencil-alt"></i>
+            <%end%>
+            <%=link_to company_path(company), class: "dec-no", data: { turbo_method: :delete, 
+                                                                      turbo_confirm: "Seguro?" } do%>
+              <i class="far fa-trash-alt"></i>
+            <%end%>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  
+</div>

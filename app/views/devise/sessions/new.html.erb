@@ -1,0 +1,47 @@
+<h2 class= " flex center mb-4">Sign In To Your Account</h2>
+<section class="container__sm mb-2 bg-white pd-24-16" >
+
+  <div class="flex flex-column center gap-4 mb-4">
+    <p>CONTINUE WITH</p>
+    <div class="flex gap-2">
+      <%= button_to "Google","#", class: "button button--secondary" %>
+      <div data-turbo="false">
+        <%= form_with(url: user_github_omniauth_authorize_path, method: :post) do |f| %>
+          <%= f.submit "Git Hub", class: "button button--secondary"  %>
+        <% end %>
+      </div>
+    </div>
+    <span class="overline"> OR</span>
+  </div>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html:{class: "flex flex-column gap-2 mb-4"}) do |f| %>
+    <div class="input">
+      <%= f.label :email,class:"content-xs overline" %>
+      <div class="input__container">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input__content" %>
+      </div>
+    </div>
+
+    <div class="input">
+      <%= f.label :password %>
+      <div class="input__container">
+        <%= f.password_field :password, autocomplete: "current-password",class: "input__content"%>
+      </div>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field">      
+        <%= f.check_box :remember_me %>      
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="flex center ">
+      <%= f.submit "Sign In", class: "button button--sm" %>
+    </div>
+  <% end %>
+
+  <div class="flex flex-column center gap-4">
+    <%= render "devise/shared/links" %>
+  </div>
+</section>

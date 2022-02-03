@@ -13,3 +13,35 @@
  *= require_tree .
  *= require_self
  */
+
+
+ *,
+ html,
+ body {
+     box-sizing: border-box;
+     padding: 0;
+     margin: 0;
+ }
+
+ body {
+    background-color:#F2F2F2;    
+ }
+
+ .section-game {
+     text-align: center;
+     justify-content: center;
+     margin: auto;
+ }
+
+@import url("global.css");
+@import url("./components/button.css");
+@import url("./components/input.css");
+@import url("./components/header.css");
+@import url("./components/footer.css");
+@import url("games.css");
+
+a {
+  color: var(--primary-500);
+  text-decoration: none;
+}
+

@@ -1,0 +1,69 @@
+<section class="container__sm mb-2" >
+  <%= form_with(model: game, class: "flex flex-column gap-4") do |form| %>
+    <% if game.errors.any? %>
+      <div style="color: red">
+        <h2><%= pluralize(game.errors.count, "error") %> prohibited this game from being saved:</h2>
+
+        <ul>
+          <% game.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="input">
+      <%= form.label :name, class:"content-xs overline" %>
+      <div class="input__container">
+        <%= form.text_field :name, class:"input__content" %>
+      </div>
+    </div>
+
+    <div class="input">
+      <%= form.label :summary, class:"content-xs overline" %>
+      <div class="input__container">
+        <%= form.text_area :summary, class:"input__content" %>
+      </div>
+    </div>
+
+    <div class="input">
+      <%= form.label :release_date, class:"content-xs overline" %>
+      <div class="input__container">
+        <%= form.date_field :release_date, class:"input__content" %>
+      </div>
+    </div>
+
+    <div class="select">
+      <%= form.label :category, class:"content-xs overline" %>
+      
+        <%= form.select :category, [["Main Game", "main_game"], ["Expansion Game", "expansion"]],{}, {class:"select__input"} %>
+      
+
+    </div>
+
+    <div class="select">
+      <%= form.label :parent_id, class:"content-xs overline"%>
+        <%= form.collection_select :parent_id, games, :id, :name, { include_blank: "No Parent ID" }, class: "select__input" %>
+      <%#errors_for(games, :parent_id)%>
+    </div>
+
+    <div class="input">
+      <%= form.label :rating, class:"content-xs overline" %>
+      <div class="input__container">
+        <%= form.text_field :rating, class:"input__content" %>
+      </div>
+    </div>
+
+    <div class="input">
+      <%= form.label :cover, class:"content-xs overline" %>
+      <% if game.cover.attached? %>
+        <%= image_tag game.cover, class: "preview" %>
+      <% end %>
+      <%= form.file_field :cover %>
+    </div>
+
+    <div class="flex center">
+      <%= form.submit class: "button button--sm" %>
+    </div>
+  <% end %>
+</section>

@@ -1,0 +1,61 @@
+class CompaniesController < ApplicationController
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_company, only: %i[show edit update destroy]
+
+  # GET /companies or /companies.json
+  def index
+    @companies = Company.all
+  end
+
+  # GET /companies/1 or /companies/1.json
+  def show
+    @games = @company.games
+    @critic = Critic.new
+    @critics = @company.critics
+  end
+
+  # GET /companies/new
+  def new
+    @company = Company.new
+  end
+
+  # GET /companies/1/edit
+  def edit; end
+
+  # POST /companies or /companies.json
+  def create
+    @company = Company.new(company_params)
+    if @company.save
+      redirect_to companies_path, notice: "Company was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  # PATCH/PUT /companies/1 or /companies/1.json
+  def update
+    if @company.update(company_params)
+      redirect_to company_path(@company), notice: "Company was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /companies/1 or /companies/1.json
+  def destroy
+    @company.destroy
+    redirect_to companies_path, notice: "Company was successfully destroyed."
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_company
+    @company = Company.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def company_params
+    params.require(:company).permit(:name, :description, :start_date, :country, :cover)
+  end
+end

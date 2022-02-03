@@ -1,0 +1,46 @@
+<div id="<%= dom_id game %>">
+  <div class="game-card flex center gap-2">    
+    <div>      
+      <%= image_tag  game.cover , class: "game-img" if game.cover.attached?%>      
+    </div>
+
+    <div class="flex flex-column">
+      <div class="flex flex-column">
+        <div class="game-card__title_inline">
+          <div class="game-card__title">
+            <h2 class="content-lg">
+                <%= game.name %>
+            </h2>
+            <p class="content-xs">         
+              <%= game.release_date.year %>
+            </p>
+          </div>
+          <p class="card-rating flex center">        
+            <%= game.rating.round(1) if !game.rating.nil? %>
+          </p>
+        </div>      
+        <div class="game-summary" >        
+          <%= game.summary %>
+        </div>      
+      </div>
+
+      
+      <div class="game-card__footer">
+        <p><%=game.critics_count%> Critics</p>
+        <% if policy(:game).show? %>
+          <div class="game-card__icons">
+            <%=link_to edit_game_path(game), class: "dec-no" do %>
+              <i class="fas fa-pencil-alt"></i>
+            <%end%>
+            <%=link_to game_path(game), class: "dec-no", data: { turbo_method: :delete, 
+                                                                      turbo_confirm: "Seguro?" } do%>
+              <i class="far fa-trash-alt"></i>
+            <%end%>
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
